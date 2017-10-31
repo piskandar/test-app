@@ -1,2 +1,13 @@
 resources:
 - name: test-app
+  type: git
+  source:
+    uri: https://github.com/piskandar/test-app.git
+    branch: master
+
+jobs:
+  - name: build
+    plan:
+      - get: test-app
+      - task: build
+        file: test-app/concourse/tasks/build/build.yml
