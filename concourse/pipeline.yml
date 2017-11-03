@@ -14,5 +14,14 @@ jobs:
   - name: build
     plan:
       - get: test-app
+        trigger: true
+        passed: [test]
       - task: build
         file: test-app/concourse/tasks/build/build.yml
+  - name: clean
+      plan:
+        - get: test-app
+          trigger: true
+          passed: [build]
+        - task: clean
+          file: test-app/concourse/tasks/clean/clean.yml
